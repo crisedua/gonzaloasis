@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #1a1a1a;
+      color: #e8e8e8;
+      padding: 20px;
+      font-size: 13px;
+    }
+    h2 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: -0.01em; }
+    .sub { font-size: 11px; color: #666; margin-bottom: 20px; }
+    .preview { background: #111; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .preview-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 8px; }
+    .goal-text { font-size: 13px; color: #a06cff; font-weight: 600; margin-bottom: 4px; }
+    .tagline { font-size: 11px; color: #888; margin-bottom: 12px; line-height: 1.5; }
+    .phases { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .phase-pill {
+      font-size: 10px; padding: 4px 8px; border-radius: 6px;
+      border: 1px solid #2a2a2a; color: #ccc; background: #1a1a1a;
+    }
+    .phase-pill span { display: block; font-size: 9px; color: #666; margin-top: 2px; }
+    .status { font-size: 11px; color: #666; text-align: center; margin-bottom: 12px; min-height: 16px; }
+    .status.error { color: #ff6c6c; }
+    .btn {
+      width: 100%; padding: 12px; border-radius: 8px; border: none;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.1s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.4; cursor: default; }
+    .btn-create { background: #6c8eff; color: #fff; margin-bottom: 8px; }
+    .btn-cancel { background: #2a2a2a; color: #888; }
+    .meta { font-size: 10px; color: #333; text-align: center; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <h2>Goals Map</h2>
+  <div class="sub">Generated 2026-03-02 from .\documents\goals-2026-03-02.md</div>
+
+  <div class="preview">
+    <div class="preview-label">What will be created</div>
+    <div class="goal-text" id="goal-title"></div>
+    <div class="tagline" id="goal-tagline"></div>
+    <div class="phases" id="phases-list"></div>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <button class="btn btn-create" id="btn-create" onclick="createMap()">
+    Create Map in FigJam
+  </button>
+  <button class="btn btn-cancel" onclick="cancel()">Cancel</button>
+
+  <div class="meta">
+    4 phases ·
+    15 actions ·
+    5 philosophy tags
+  </div>
+
+  <script>
+    const DATA = {
+  "goal": {
+    "title": "$5k Monthly Recurring Income — Selling/Teaching Claude Skills to Companies",
+    "tagline": "I help small business owners stop running their business and start leading it —"
+  },
+  "philosophy": [
+    "Playful",
+    "Sincere, not serious",
+    "Non-attachment",
+    "Intrinsic motivation",
+    "Enjoyment as signal"
+  ],
+  "phases": [
+    {
+      "title": "Offer",
+      "actions": [
+        "Define the cohort format: 5–8 companies, 6-week program, 2 group calls/week",
+        "Price at $1,000–1,500/company for the 6-week cohort",
+        "Add a $300/mo maintenance retainer after cohort ends (path to stable MRR)",
+        "Write the one-line offer (see offer.md)"
+      ]
+    },
+    {
+      "title": "First Cohort (Validation)",
+      "actions": [
+        "Don't build the funnel yet — get the first 3–5 clients via direct outreach",
+        "Identify 10 companies you already have relationships with (existing clients, referrals)",
+        "Offer the first cohort at a founding rate to collect testimonials and case studies",
+        "Run it, document results, get specific numbers (hours saved, processes automated)"
+      ]
+    },
+    {
+      "title": "Funnel (after first cohort)",
+      "actions": [
+        "Build a 1-page landing page: hero → problem → solution → proof → CTA",
+        "Single CTA: \"Apply for the next cohort\" (application form)",
+        "Record a 10–15 min VSL (see VSL outline in offer.md)",
+        "Lead magnet: Free \"AI Readiness Audit\" — 20-min call where you assess their operations"
+      ]
+    },
+    {
+      "title": "Lead Gen (ongoing)",
+      "actions": [
+        "LinkedIn: 3–5 posts/week showing before/after of AI implementations",
+        "Outreach: 20 personalized DMs/week to SMB owners in Chile and LATAM",
+        "Referrals: After every client win, ask \"who else should know about this?\""
+      ]
+    }
+  ],
+  "revenueMath": "📊 Revenue Math\n\n5 companies × $1,000\n= $5,000 MRR\n\n20 DMs/week → 2 replies\n→ 1 call/week → 1 client/month",
+  "generatedAt": "2026-03-02",
+  "sourceFile": ".\\documents\\goals-2026-03-02.md"
+};
+
+    // Render preview
+    document.getElementById('goal-title').textContent = DATA.goal.title;
+    document.getElementById('goal-tagline').textContent = DATA.goal.tagline;
+    const phasesEl = document.getElementById('phases-list');
+    DATA.phases.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'phase-pill';
+      el.innerHTML = `${p.title}<span>${p.actions.length} actions</span>`;
+      phasesEl.appendChild(el);
+    });
+
+    function createMap() {
+      document.getElementById('btn-create').disabled = true;
+      document.getElementById('status').textContent = 'Building map...';
+      parent.postMessage({ pluginMessage: { type: 'create-map', data: DATA } }, '*');
+    }
+
+    function cancel() {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    }
+
+    // Listen for status updates from code.js
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      if (!msg) return;
+      if (msg.type === 'status') {
+        document.getElementById('status').textContent = msg.text;
+      }
+      if (msg.type === 'error') {
+        const el = document.getElementById('status');
+        el.textContent = 'Error: ' + msg.text;
+        el.className = 'status error';
+        document.getElementById('btn-create').disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

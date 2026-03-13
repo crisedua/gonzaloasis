@@ -1,0 +1,20 @@
+{
+  "name": "second-brain-bot",
+  "version": "1.0.0",
+  "description": "Telegram adapter for a Markdown + SQLite second brain, powered by Claude.",
+  "type": "module",
+  "main": "bot.mjs",
+  "scripts": {
+    "start": "node bot.mjs",
+    "index": "node memory_manager.mjs index",
+    "search": "node memory_manager.mjs search"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "dotenv": "^16.4.0",
+    "evernote": "^2.0.5",
+    "googleapis": "^171.4.0",
+    "linkedom": "^0.18.12",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}

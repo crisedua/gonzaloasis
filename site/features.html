@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Funciones — Asistente de IA</title>
+  <meta name="description" content="Todas las habilidades de tu asistente de IA: briefing matutino, gestion de tareas, calendario, email, metas, LinkedIn, estrategia de leads y busqueda."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- ═══ Scroll Progress ═══ -->
+  <div class="scroll-progress"></div>
+
+  <!-- ═══ Navigation ═══ -->
+  <nav class="nav scrolled">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Asistente <span>IA</span></a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="features.html" class="active">Funciones</a>
+        <a href="diagrama.html">Diagrama</a>
+        <a href="specs.html">Specs</a>
+        <a href="index.html#contacto" class="nav-cta">Quiero saber mas</a>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="section" style="padding-top:140px">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Funciones</span>
+        <h2>Que puede hacer por ti</h2>
+        <p>Tu asistente personal con IA se conecta a tus herramientas reales, recuerda tu contexto, y actua cuando se lo pides — o cuando algo importa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Architecture ═══ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Arquitectura</span>
+        <h2>Como funciona por dentro</h2>
+      </div>
+      <div class="arch-flow">
+        <div class="arch-card telegram reveal reveal-delay-1">
+          <div class="icon">&#128241;</div>
+          <div class="label">Tu acceso</div>
+          <h4>Telegram</h4>
+          <p>Escribes en lenguaje natural. Funciona en espanol e ingles. Disponible 24/7.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-1">&rarr;</div>
+        <div class="arch-card brain reveal reveal-delay-2">
+          <div class="icon">&#129504;</div>
+          <div class="label">El cerebro</div>
+          <h4>Claude IA</h4>
+          <p>Sabe quien eres. Aprende tus preferencias. Piensa antes de actuar.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-2">&rarr;</div>
+        <div class="arch-card memory reveal reveal-delay-3">
+          <div class="icon">&#128218;</div>
+          <div class="label">Persistente</div>
+          <h4>Memoria</h4>
+          <p>Registra cada conversacion. Historial buscable. Nunca olvida.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-3">&rarr;</div>
+        <div class="arch-card heartbeat reveal reveal-delay-4">
+          <div class="icon">&#10084;&#65039;</div>
+          <div class="label">Proactivo</div>
+          <h4>Latido</h4>
+          <p>Te revisa cada 3 horas. Si algo importa, te avisa primero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ All 8 Skills ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal-scale">
+        <span class="label">8 habilidades</span>
+        <h2>Todo desde un chat</h2>
+        <p>Haz clic en cada tarjeta para ver mas detalles.</p>
+      </div>
+
+      <!-- Productividad -->
+      <div class="category-label reveal">&#9889; Productividad</div>
+      <div class="skill-grid" style="margin-bottom:40px">
+        <div class="skill-card reveal reveal-delay-1" data-expandable>
+          <div class="icon orange">&#9728;&#65039;</div>
+          <h4>Briefing Matutino</h4>
+          <div class="trigger">"Planifica mi dia"</div>
+          <p>Reune tus tareas, calendario y metas. Crea un plan de accion diario narrativo.</p>
+          <div class="detail">Obtiene datos de Freedcamp, Todoist, Google Calendar y tus objetivos en paralelo. Claude genera un plan personalizado basado en tus prioridades reales. Se ejecuta con /morning o diciendo "planifica mi dia".</div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2" data-expandable>
+          <div class="icon red">&#9745;&#65039;</div>
+          <h4>Gestion de Tareas</h4>
+          <div class="trigger">"Cierra todas las tareas de X"</div>
+          <p>Freedcamp + Todoist. Ve, crea, completa y elimina tareas con lenguaje natural.</p>
+          <div class="detail">Soporta ambas plataformas. "Cierra tareas de freedcamp para Teklatam" o "completa tareas de todoist para proyecto X". Sin clicks, sin interfaces, sin friccion.</div>
+        </div>
+        <div class="skill-card reveal reveal-delay-3" data-expandable>
+          <div class="icon blue">&#128197;</div>
+          <h4>Calendario</h4>
+          <div class="trigger">"Que tengo hoy?"</div>
+          <p>Ve, crea, busca y elimina eventos de Google Calendar desde el chat.</p>
+          <div class="detail">Agenda reuniones con lenguaje natural: "agenda una reunion con Juan manana a las 3pm". Muestra eventos del dia, busca por nombre, elimina por ID. Zona horaria configurable.</div>
+        </div>
+      </div>
+
+      <!-- Comunicacion -->
+      <div class="category-label reveal">&#128172; Comunicacion</div>
+      <div class="skill-grid" style="margin-bottom:40px">
+        <div class="skill-card reveal reveal-delay-1" data-expandable>
+          <div class="icon purple">&#9993;&#65039;</div>
+          <h4>Email y Drive</h4>
+          <div class="trigger">"Revisa mi correo"</div>
+          <p>Lee, busca y envia Gmail. Busca archivos en Google Drive. Todo desde Telegram.</p>
+          <div class="detail">Busca correos de personas especificas, emails con palabras clave, envia emails con asunto y cuerpo. Busca documentos en Drive por nombre. Zero context switching.</div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2" data-expandable>
+          <div class="icon blue">&#128221;</div>
+          <h4>Contenido LinkedIn</h4>
+          <div class="trigger">"Escribe un post de LinkedIn"</div>
+          <p>Un equipo de escritura IA crea posts. Tu revisas, editas y apruebas.</p>
+          <div class="detail">Proceso de 4 agentes: investigador, escritor, editor y estratega social. Te presenta una propuesta con hooks, cuerpo y CTA. Tu apruebas o pides cambios antes de publicar.</div>
+        </div>
+      </div>
+
+      <!-- Estrategia -->
+      <div class="category-label reveal">&#127919; Estrategia</div>
+      <div class="skill-grid" style="margin-bottom:40px">
+        <div class="skill-card reveal reveal-delay-1" data-expandable>
+          <div class="icon green">&#127919;</div>
+          <h4>Seguimiento de Metas</h4>
+          <div class="trigger">"Revisa mis objetivos"</div>
+          <p>Rastrea tus metas de negocio, actualiza progreso, registra metricas.</p>
+          <div class="detail">Sistema completo: crear metas, actualizar estado, registrar metricas, generar diagramas visuales, sincronizar acciones con Todoist automaticamente.</div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2" data-expandable>
+          <div class="icon orange">&#128200;</div>
+          <h4>Estrategia de Leads</h4>
+          <div class="trigger">"Ayudame a conseguir clientes"</div>
+          <p>Crea un playbook completo de generacion de leads con Hormozi + Martel.</p>
+          <div class="detail">Entrevista de descubrimiento, definicion de cliente ideal, oferta irresistible, lead magnets, scripts de contacto, plan semanal, sprint de 90 dias con KPIs.</div>
+        </div>
+      </div>
+
+      <!-- Inteligencia -->
+      <div class="category-label reveal">&#128269; Inteligencia</div>
+      <div class="skill-grid">
+        <div class="skill-card reveal reveal-delay-1" data-expandable>
+          <div class="icon green">&#128269;</div>
+          <h4>Busqueda Web y Memoria</h4>
+          <div class="trigger">"Busca X"</div>
+          <p>Busca en la web y en tu memoria personal. Resume resultados con contexto.</p>
+          <div class="detail">Dos motores: busqueda web (DuckDuckGo + resumen por Claude) y busqueda en memoria (FTS5 sobre todas tus conversaciones e historial). Siempre con contexto de quien eres.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Privacy & Extensibility ═══ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Infraestructura</span>
+        <h2>Privado. Extensible. Tuyo.</h2>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card private reveal-left reveal-delay-1">
+          <h4>&#128274; 100% Privado</h4>
+          <ul>
+            <li>Corre en tu propio servidor VPS — tus datos nunca salen de tu control</li>
+            <li>No depende de servicios de terceros para almacenamiento</li>
+            <li>Solo tu usuario de Telegram autorizado puede interactuar</li>
+            <li>Memoria almacenada en archivos Markdown + SQLite locales</li>
+            <li>Sin bases de datos en la nube — todo vive en tu servidor</li>
+          </ul>
+        </div>
+        <div class="diff-card extensible reveal-right reveal-delay-2">
+          <h4>&#128295; Facilmente extensible</h4>
+          <ul>
+            <li>Agregar una nueva habilidad es crear un archivo Markdown con instrucciones</li>
+            <li>Conectar una nueva herramienta es escribir un modulo Node.js simple</li>
+            <li>Ya integrado: Gmail, Google Drive, Google Calendar, Freedcamp, Todoist</li>
+            <li>Patron de lenguaje natural reutilizable para cada nueva conexion</li>
+            <li>Arquitectura modular — cada integracion es independiente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Not ChatGPT ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">La diferencia</span>
+        <h2>Por que no es como ChatGPT</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card reveal-scale reveal-delay-1">
+          <div class="icon">&#129504;</div>
+          <h4>Memoria persistente</h4>
+          <p>ChatGPT olvida todo al cerrar la ventana. Tu Asistente IA recuerda cada conversacion que has tenido.</p>
+        </div>
+        <div class="trust-card reveal-scale reveal-delay-2">
+          <div class="icon">&#10084;&#65039;</div>
+          <h4>Proactivo</h4>
+          <p>ChatGPT espera que le hables. Tu Asistente IA te avisa cuando algo importa — sin que preguntes.</p>
+        </div>
+        <div class="trust-card reveal-scale reveal-delay-3">
+          <div class="icon">&#128279;</div>
+          <h4>Conectado a TUS herramientas</h4>
+          <p>ChatGPT no sabe nada de tu calendario o tareas. Tu Asistente IA lee tu Gmail, agenda y Todoist en tiempo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <div class="cta-particles"></div>
+    <div class="container">
+      <h2 class="reveal-blur">Se el director,<br/>no el operador.</h2>
+      <p class="reveal-blur reveal-delay-1">Tu IA maneja la repeticion para que tu te enfoques en la estrategia.</p>
+      <a href="https://wa.me/56912345678?text=Quiero%20saber%20mas%20sobre%20el%20Asistente%20de%20IA" class="btn-primary reveal-scale reveal-delay-2" target="_blank">
+        Agenda una demo &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <p>Asistente de IA &mdash; Construido con Claude. Hecho en Chile.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

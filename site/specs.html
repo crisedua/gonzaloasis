@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Especificaciones Tecnicas — Asistente IA</title>
+  <meta name="description" content="Especificaciones tecnicas del Asistente IA: stack tecnologico, sistema de memoria, integraciones, seguridad y privacidad."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── Stats Row ─────────────────────────────────────────────────────── */
+    .stats-row{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:24px;max-width:900px;margin:0 auto
+    }
+    .stat-item{
+      text-align:center;padding:32px 16px;
+      background:var(--white);border:1px solid var(--border);
+      border-radius:var(--radius);
+      transition:var(--transition)
+    }
+    .stat-item:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .stat-number{
+      font-size:clamp(36px,5vw,64px);font-weight:800;
+      background:var(--accent-gradient);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+      line-height:1.1;margin-bottom:8px
+    }
+    .stat-label{font-size:14px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+    .stat-sub{font-size:12px;color:var(--gray);margin-top:4px}
+
+    /* ── Stack Grid ────────────────────────────────────────────────────── */
+    .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .stack-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:32px 28px;
+      position:relative;overflow:hidden;
+      transition:var(--transition)
+    }
+    .stack-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;
+      height:3px;background:var(--accent-gradient);
+      transform:scaleX(0);transform-origin:left;
+      transition:transform .5s var(--ease-out-expo)
+    }
+    .stack-card:hover::before{transform:scaleX(1)}
+    .stack-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);border-color:transparent}
+    .stack-card .s-icon{
+      font-size:32px;margin-bottom:16px;
+      transition:transform .4s var(--ease-spring)
+    }
+    .stack-card:hover .s-icon{transform:scale(1.15) rotate(-5deg)}
+    .stack-card .s-tag{
+      display:inline-block;
+      font-size:11px;font-weight:700;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--accent);
+      margin-bottom:8px
+    }
+    .stack-card h4{margin-bottom:8px;font-size:18px}
+    .stack-card p{font-size:14px;color:var(--gray);line-height:1.6}
+    .stack-card .s-version{
+      display:inline-block;margin-top:12px;
+      padding:4px 12px;
+      background:var(--light-gray);border-radius:8px;
+      font-size:12px;font-weight:600;color:var(--dark)
+    }
+
+    /* ── Integration Grid ──────────────────────────────────────────────── */
+    .integration-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .integration-card{
+      padding:24px 20px;
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:16px;
+      border-left:3px solid var(--accent);
+      transition:var(--transition);
+      position:relative;overflow:hidden
+    }
+    .integration-card::after{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,107,53,.04) 0%,transparent 60%);
+      opacity:0;transition:opacity .3s
+    }
+    .integration-card:hover::after{opacity:1}
+    .integration-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .integration-card .i-icon{font-size:28px;margin-bottom:12px}
+    .integration-card h4{font-size:15px;margin-bottom:6px}
+    .integration-card p{font-size:13px;color:var(--gray);line-height:1.5}
+
+    /* Integration border colors */
+    .integration-card.gmail{border-left-color:#EA4335}
+    .integration-card.gcal{border-left-color:#4285F4}
+    .integration-card.gdrive{border-left-color:#0F9D58}
+    .integration-card.freedcamp{border-left-color:#2b8a3e}
+    .integration-card.todoist{border-left-color:#E44332}
+    .integration-card.telegram{border-left-color:#229ED9}
+    .integration-card.linkedin{border-left-color:#0A66C2}
+    .integration-card.search{border-left-color:var(--accent)}
+
+    /* ── Memory Pipeline ───────────────────────────────────────────────── */
+    .pipeline-card .label{color:#2b8a3e}
+    .pipeline-card h4{font-size:14px}
+    .pipeline-card p{font-size:12px}
+
+    /* ── Context Files Visual ──────────────────────────────────────────── */
+    .context-files{
+      display:flex;gap:12px;flex-wrap:wrap;
+      margin-top:16px
+    }
+    .context-file{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:8px 16px;
+      background:var(--light-gray);border:1px solid var(--border);
+      border-radius:10px;
+      font-size:13px;font-weight:600;color:var(--dark);
+      transition:var(--transition)
+    }
+    .context-file:hover{background:var(--white);box-shadow:var(--shadow)}
+    .context-file .cf-icon{font-size:16px}
+
+    /* ── Responsive ────────────────────────────────────────────────────── */
+    @media(max-width:960px){
+      .stats-row{grid-template-columns:repeat(2,1fr)}
+      .stack-grid{grid-template-columns:repeat(2,1fr)}
+      .integration-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
+      .stats-row{grid-template-columns:1fr 1fr}
+      .stack-grid{grid-template-columns:1fr}
+      .integration-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Scroll Progress ═══ -->
+  <div class="scroll-progress"></div>
+
+  <!-- ═══ Navigation ═══ -->
+  <nav class="nav scrolled">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Asistente <span>IA</span></a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="features.html">Funciones</a>
+        <a href="diagrama.html">Diagrama</a>
+        <a href="specs.html" class="active">Specs</a>
+        <a href="index.html#contacto" class="nav-cta">Quiero saber mas</a>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ 1. Hero Header ═══ -->
+  <section class="section" style="padding-top:140px">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Especificaciones Tecnicas</span>
+        <h2>Bajo el capo del asistente</h2>
+        <p>Arquitectura real, stack tecnologico, sistema de memoria y seguridad. Sin marketing — solo hechos tecnicos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. Key Stats ═══ -->
+  <section class="section section-alt" style="padding-top:60px;padding-bottom:80px">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item reveal-scale reveal-delay-1">
+          <div class="stat-number" data-count="8">0</div>
+          <div class="stat-label">Habilidades</div>
+          <div class="stat-sub">Skills modulares</div>
+        </div>
+        <div class="stat-item reveal-scale reveal-delay-2">
+          <div class="stat-number" data-count="8">0</div>
+          <div class="stat-label">Integraciones</div>
+          <div class="stat-sub">APIs conectadas</div>
+        </div>
+        <div class="stat-item reveal-scale reveal-delay-3">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Disponibilidad</div>
+          <div class="stat-sub">Siempre activo</div>
+        </div>
+        <div class="stat-item reveal-scale reveal-delay-4">
+          <div class="stat-number" data-count="180">0</div>
+          <div class="stat-label">Min Latido</div>
+          <div class="stat-sub">Chequeo proactivo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. Tech Stack ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Stack Tecnologico</span>
+        <h2>Construido con tecnologia moderna</h2>
+        <p>Cada componente elegido por simplicidad, rendimiento y control total.</p>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-card reveal reveal-delay-1">
+          <div class="s-icon">&#9881;&#65039;</div>
+          <div class="s-tag">Runtime</div>
+          <h4>Node.js</h4>
+          <p>Proceso unico, sin contenedores. Event loop no bloqueante para manejar mensajes en tiempo real.</p>
+          <span class="s-version">v24.11.1</span>
+        </div>
+        <div class="stack-card reveal reveal-delay-2">
+          <div class="s-icon">&#129504;</div>
+          <div class="s-tag">Modelo IA</div>
+          <h4>Claude Opus 4.6</h4>
+          <p>El modelo mas avanzado de Anthropic. Razonamiento profundo, comprension contextual y generacion de texto de alta calidad.</p>
+          <span class="s-version">claude-opus-4-6</span>
+        </div>
+        <div class="stack-card reveal reveal-delay-3">
+          <div class="s-icon">&#128241;</div>
+          <div class="s-tag">Interfaz</div>
+          <h4>Telegram Bot API</h4>
+          <p>Comunicacion bidireccional en tiempo real. Soporte para texto, archivos, imagenes y comandos slash.</p>
+          <span class="s-version">node-telegram-bot-api</span>
+        </div>
+        <div class="stack-card reveal reveal-delay-4">
+          <div class="s-icon">&#128451;&#65039;</div>
+          <div class="s-tag">Memoria</div>
+          <h4>SQLite FTS5</h4>
+          <p>Busqueda full-text con ranking BM25. Chunks de ~400 caracteres con 80 de overlap para precision.</p>
+          <span class="s-version">node:sqlite (built-in)</span>
+        </div>
+        <div class="stack-card reveal reveal-delay-5">
+          <div class="s-icon">&#128196;</div>
+          <div class="s-tag">Almacenamiento</div>
+          <h4>Markdown + SQLite</h4>
+          <p>Archivos Markdown como fuente de verdad. SQLite como indice derivado. Todo legible, todo versionable.</p>
+          <span class="s-version">Disco local VPS</span>
+        </div>
+        <div class="stack-card reveal reveal-delay-6">
+          <div class="s-icon">&#128640;</div>
+          <div class="s-tag">Deploy</div>
+          <h4>VPS + PM2</h4>
+          <p>Servidor privado con PM2 como gestor de procesos. Auto-restart, logs, monitoreo de salud integrado.</p>
+          <span class="s-version">PM2 + Git Pull</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. Memory Pipeline ═══ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Sistema de Memoria</span>
+        <h2>Como recuerda todo</h2>
+        <p>Cada conversacion se procesa, indexa y queda disponible para busqueda instantanea.</p>
+      </div>
+      <div class="arch-flow">
+        <div class="arch-card pipeline-card memory reveal reveal-delay-1">
+          <div class="icon">&#128172;</div>
+          <div class="label">Entrada</div>
+          <h4>Mensaje</h4>
+          <p>Tu mensaje llega por Telegram y se procesa.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-1">&rarr;</div>
+        <div class="arch-card pipeline-card memory reveal reveal-delay-2">
+          <div class="icon">&#128197;</div>
+          <div class="label">Log Diario</div>
+          <h4>YYYY-MM-DD.md</h4>
+          <p>Se registra en el archivo del dia.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-2">&rarr;</div>
+        <div class="arch-card pipeline-card memory reveal reveal-delay-3">
+          <div class="icon">&#9986;&#65039;</div>
+          <div class="label">Procesamiento</div>
+          <h4>Chunking</h4>
+          <p>~400 chars por chunk, 80 de overlap.</p>
+        </div>
+        <div class="arch-arrow reveal reveal-delay-3">&rarr;</div>
+        <div class="arch-card pipeline-card memory reveal reveal-delay-4">
+          <div class="icon">&#128269;</div>
+          <div class="label">Indexacion</div>
+          <h4>FTS5 + BM25</h4>
+          <p>Busqueda full-text instantanea.</p>
+        </div>
+      </div>
+
+      <!-- Context files loaded per message -->
+      <div style="max-width:700px;margin:48px auto 0;text-align:center">
+        <h4 class="reveal" style="margin-bottom:8px">Contexto por mensaje</h4>
+        <p class="reveal reveal-delay-1" style="font-size:15px;margin-bottom:20px">Cada vez que escribes, el asistente carga 4 archivos de contexto antes de responder:</p>
+        <div class="context-files reveal reveal-delay-2" style="justify-content:center">
+          <div class="context-file"><span class="cf-icon">&#128100;</span>soul.md</div>
+          <div class="context-file"><span class="cf-icon">&#128221;</span>user.md</div>
+          <div class="context-file"><span class="cf-icon">&#129504;</span>memory.md</div>
+          <div class="context-file"><span class="cf-icon">&#128736;&#65039;</span>agent.md</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. Integration Matrix ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal-scale">
+        <span class="label">Integraciones</span>
+        <h2>8 servicios conectados</h2>
+        <p>Cada integracion funciona con lenguaje natural — sin comandos complicados.</p>
+      </div>
+      <div class="integration-grid">
+        <div class="integration-card gmail reveal-left reveal-delay-1">
+          <div class="i-icon">&#9993;&#65039;</div>
+          <h4>Gmail</h4>
+          <p>Leer, buscar y enviar correos. Busqueda por remitente o contenido.</p>
+        </div>
+        <div class="integration-card gcal reveal-right reveal-delay-1">
+          <div class="i-icon">&#128197;</div>
+          <h4>Google Calendar</h4>
+          <p>Ver, crear, buscar y eliminar eventos. Zona horaria configurable.</p>
+        </div>
+        <div class="integration-card gdrive reveal-left reveal-delay-2">
+          <div class="i-icon">&#128193;</div>
+          <h4>Google Drive</h4>
+          <p>Buscar documentos por nombre. Acceso a tus archivos desde el chat.</p>
+        </div>
+        <div class="integration-card freedcamp reveal-right reveal-delay-2">
+          <div class="i-icon">&#128203;</div>
+          <h4>Freedcamp</h4>
+          <p>Proyectos y tareas. Ver, crear, completar y eliminar con lenguaje natural.</p>
+        </div>
+        <div class="integration-card todoist reveal-left reveal-delay-3">
+          <div class="i-icon">&#9745;&#65039;</div>
+          <h4>Todoist</h4>
+          <p>Sincronizacion automatica de acciones de metas. Gestion de tareas personales.</p>
+        </div>
+        <div class="integration-card telegram reveal-right reveal-delay-3">
+          <div class="i-icon">&#128241;</div>
+          <h4>Telegram</h4>
+          <p>Interfaz principal. Texto, archivos, imagenes. Bot API con polling.</p>
+        </div>
+        <div class="integration-card linkedin reveal-left reveal-delay-4">
+          <div class="i-icon">&#128221;</div>
+          <h4>LinkedIn</h4>
+          <p>Generacion de contenido con equipo de 4 agentes IA escritores.</p>
+        </div>
+        <div class="integration-card search reveal-right reveal-delay-4">
+          <div class="i-icon">&#128269;</div>
+          <h4>DuckDuckGo</h4>
+          <p>Busqueda web con resumen contextual por Claude. Resultados relevantes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6. Security & Privacy ═══ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Seguridad</span>
+        <h2>Privacidad por diseno</h2>
+        <p>No es una promesa de marketing. Es la arquitectura real del sistema.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card private reveal-left reveal-delay-1">
+          <h4>&#128274; Infraestructura</h4>
+          <ul>
+            <li>Servidor VPS privado — sin nubes compartidas</li>
+            <li>Autenticacion por Telegram User ID unico</li>
+            <li>Cero almacenamiento en servicios de terceros</li>
+            <li>PM2 como gestor de procesos con auto-restart</li>
+            <li>Deploy via git pull — sin CI/CD externo</li>
+          </ul>
+        </div>
+        <div class="diff-card extensible reveal-right reveal-delay-2">
+          <h4>&#128451;&#65039; Flujo de Datos</h4>
+          <ul>
+            <li>4 archivos de contexto cargados por mensaje</li>
+            <li>Re-indexacion automatica despues de cada conversacion</li>
+            <li>Logs episodicos diarios en Markdown</li>
+            <li>Busqueda FTS5 local — sin APIs de busqueda externas</li>
+            <li>Latido proactivo cada 180 minutos con deduplicacion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. CTA ═══ -->
+  <section class="cta-section">
+    <div class="cta-particles"></div>
+    <div class="container">
+      <h2 class="reveal-blur">Tecnologia seria.<br/>Resultados reales.</h2>
+      <p class="reveal-blur reveal-delay-1">Un asistente construido para durar, no para impresionar en demos.</p>
+      <a href="https://wa.me/56912345678?text=Quiero%20saber%20mas%20sobre%20el%20Asistente%20de%20IA" class="btn-primary reveal-scale reveal-delay-2" target="_blank">
+        Agenda una demo &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <p>Asistente de IA &mdash; Construido con Claude. Hecho en Chile.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Mouse glow on integration cards
+    document.querySelectorAll('.integration-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
+      });
+    });
+
+    // 3D tilt on stack cards
+    document.querySelectorAll('.stack-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -3;
+        const rotateY = ((x - centerX) / centerX) * 3;
+        card.style.transform = `translateY(-6px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  </script>
+</body>
+</html>

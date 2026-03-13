@@ -1,0 +1,38 @@
+# Environment
+.env
+
+# SQLite index (derived — regenerate with: node memory_manager.mjs index)
+memory.db
+memory.db-shm
+memory.db-wal
+
+# Google OAuth tokens (personal credentials)
+.google-tokens.json
+
+# Daily logs (personal per-install)
+memory/*.md
+
+# Generated documents (personal per-install)
+documents/*.md
+documents/*.html
+documents/*.excalidraw
+documents/clipped/
+
+# Heartbeat state (personal per-install)
+heartbeat_log.json
+heartbeat_debug.log
+
+# Scheduler state (personal per-install)
+scheduler_state.json
+scheduler_debug.log
+
+# Logs
+logs/
+*.log
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

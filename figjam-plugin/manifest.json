@@ -1,0 +1,11 @@
+{
+  "name": "Goals Map — mi-asistente",
+  "id": "goals-map-mi-asistente",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figjam"],
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}

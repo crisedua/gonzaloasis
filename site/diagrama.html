@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Diagrama del Sistema — Asistente IA</title>
+  <meta name="description" content="Diagrama interactivo del sistema completo: arquitectura, habilidades, privacidad y extensibilidad."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* Diagram-specific styles */
+    .diagram-canvas{
+      position:relative;
+      max-width:1100px;margin:0 auto;
+      padding:40px 20px 80px
+    }
+
+    /* Central brain */
+    .brain-hub{
+      width:220px;height:220px;
+      margin:0 auto 0;
+      border-radius:50%;
+      background:linear-gradient(135deg,#fff8f0,#fff3e0);
+      border:2px solid #ffd6a0;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      position:relative;z-index:2;
+      box-shadow:0 12px 48px rgba(255,107,53,.12);
+      transition:all .4s ease
+    }
+    .brain-hub:hover{transform:scale(1.04);box-shadow:0 16px 60px rgba(255,107,53,.18)}
+    .brain-hub::after{
+      content:'';position:absolute;inset:-4px;
+      border-radius:50%;
+      border:2px solid rgba(255,107,53,.2);
+      animation:brainPulse 3s ease-in-out infinite
+    }
+    @keyframes brainPulse{
+      0%,100%{transform:scale(1);opacity:.6}
+      50%{transform:scale(1.08);opacity:0}
+    }
+    .brain-hub .icon{font-size:48px;margin-bottom:8px}
+    .brain-hub h3{font-size:18px;color:var(--dark);margin-bottom:4px}
+    .brain-hub p{font-size:12px;color:var(--gray);text-align:center;padding:0 20px}
+
+    /* Orbit layout */
+    .orbit-ring{
+      position:relative;
+      width:100%;max-width:900px;
+      margin:-40px auto 0;
+      display:flex;flex-wrap:wrap;
+      justify-content:center;gap:20px;
+      padding-top:60px
+    }
+
+    /* Connector lines */
+    .connector-layer{
+      position:absolute;top:0;left:0;right:0;bottom:0;
+      pointer-events:none;z-index:0
+    }
+    .connector-layer svg{width:100%;height:100%}
+    .connector-line{stroke:#e0e0e0;stroke-width:1.5;stroke-dasharray:6,4;fill:none}
+
+    /* Node cards */
+    .node{
+      width:200px;
+      background:#fff;
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      padding:20px 16px;
+      text-align:center;
+      transition:all .3s ease;
+      cursor:pointer;
+      position:relative;z-index:1
+    }
+    .node:hover{
+      transform:translateY(-6px) scale(1.03);
+      box-shadow:0 12px 32px rgba(0,0,0,.08);
+      border-color:transparent
+    }
+    .node .n-icon{transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+    .node:hover .n-icon{transform:scale(1.2) rotate(-5deg)}
+    .node.active{
+      border-color:var(--accent);
+      box-shadow:0 8px 24px rgba(255,107,53,.15)
+    }
+    .node .n-icon{font-size:28px;margin-bottom:10px}
+    .node .n-label{
+      font-size:10px;font-weight:700;letter-spacing:.12em;
+      text-transform:uppercase;margin-bottom:6px
+    }
+    .node.telegram .n-label{color:#229ED9}
+    .node.heartbeat .n-label{color:#e03131}
+    .node.memory .n-label{color:#2b8a3e}
+    .node.skill .n-label{color:var(--accent)}
+    .node h4{font-size:15px;color:var(--dark);margin-bottom:6px}
+    .node p{font-size:12px;color:var(--gray);line-height:1.5}
+
+    /* Detail panel */
+    .detail-panel{
+      max-width:700px;margin:40px auto 0;
+      background:var(--light-gray);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:32px;
+      min-height:120px;
+      transition:all .4s ease;
+      opacity:0;transform:translateY(20px)
+    }
+    .detail-panel.visible{opacity:1;transform:translateY(0)}
+    .detail-panel h3{font-size:20px;margin-bottom:12px;color:var(--dark)}
+    .detail-panel p{font-size:15px;line-height:1.7}
+    .detail-panel ul{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .detail-panel li{
+      font-size:14px;color:#555;line-height:1.6;
+      padding-left:24px;position:relative
+    }
+    .detail-panel li::before{
+      content:"\2713";position:absolute;left:0;
+      color:var(--accent);font-weight:700
+    }
+
+    /* Bottom info cards */
+    .info-row{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:20px;max-width:700px;margin:40px auto 0
+    }
+    .info-card{
+      padding:24px 20px;
+      background:#fff;border:1px solid var(--border);
+      border-radius:16px;transition:all .3s ease
+    }
+    .info-card:hover{box-shadow:var(--shadow)}
+    .info-card.private{border-left:3px solid #2b8a3e}
+    .info-card.extensible{border-left:3px solid #229ED9}
+    .info-card h4{font-size:15px;margin-bottom:10px}
+    .info-card li{font-size:13px;color:#555;line-height:1.6;padding-left:20px;position:relative}
+    .info-card li::before{content:"\2713";position:absolute;left:0;color:#2b8a3e;font-weight:700}
+    .info-card.extensible li::before{color:#229ED9}
+    .info-card ul{display:flex;flex-direction:column;gap:6px;list-style:none}
+
+    @media(max-width:768px){
+      .orbit-ring{flex-direction:column;align-items:center;padding-top:30px;margin-top:0}
+      .node{width:100%;max-width:320px}
+      .brain-hub{width:180px;height:180px}
+      .info-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Navigation ═══ -->
+  <nav class="nav scrolled">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Asistente <span>IA</span></a>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="features.html">Funciones</a>
+        <a href="diagrama.html" class="active">Diagrama</a>
+        <a href="specs.html">Specs</a>
+        <a href="index.html#contacto" class="nav-cta">Quiero saber mas</a>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ Scroll Progress ═══ -->
+  <div class="scroll-progress"></div>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="section" style="padding-top:140px;padding-bottom:40px">
+    <div class="container">
+      <div class="section-header reveal-blur">
+        <span class="label">Diagrama del sistema</span>
+        <h2>Todo el sistema en una vista</h2>
+        <p>Haz clic en cualquier componente para ver los detalles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Interactive Diagram ═══ -->
+  <section class="section" style="padding-top:0">
+    <div class="diagram-canvas">
+
+      <!-- Central Brain -->
+      <div class="brain-hub reveal" data-detail="brain">
+        <div class="icon">&#129504;</div>
+        <h3>Asistente IA</h3>
+        <p>Claude — tu asistente que piensa, recuerda y actua</p>
+      </div>
+
+      <!-- Orbit nodes -->
+      <div class="orbit-ring">
+        <div class="node telegram reveal reveal-delay-1" data-detail="telegram">
+          <div class="n-icon">&#128241;</div>
+          <div class="n-label">Tu acceso</div>
+          <h4>Telegram</h4>
+          <p>Escribes en lenguaje natural. Espanol e ingles.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-1" data-detail="morning">
+          <div class="n-icon">&#9728;&#65039;</div>
+          <div class="n-label">Productividad</div>
+          <h4>Briefing Matutino</h4>
+          <p>Plan diario con tareas, calendario y metas.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-2" data-detail="tasks">
+          <div class="n-icon">&#9745;&#65039;</div>
+          <div class="n-label">Productividad</div>
+          <h4>Gestion de Tareas</h4>
+          <p>Freedcamp + Todoist desde el chat.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-2" data-detail="calendar">
+          <div class="n-icon">&#128197;</div>
+          <div class="n-label">Productividad</div>
+          <h4>Calendario</h4>
+          <p>Google Calendar: ver, crear, buscar eventos.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-3" data-detail="email">
+          <div class="n-icon">&#9993;&#65039;</div>
+          <div class="n-label">Comunicacion</div>
+          <h4>Email y Drive</h4>
+          <p>Gmail + Google Drive integrados.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-3" data-detail="linkedin">
+          <div class="n-icon">&#128221;</div>
+          <div class="n-label">Comunicacion</div>
+          <h4>LinkedIn</h4>
+          <p>Equipo de escritura IA para posts.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-4" data-detail="goals">
+          <div class="n-icon">&#127919;</div>
+          <div class="n-label">Estrategia</div>
+          <h4>Metas</h4>
+          <p>Seguimiento + metricas + diagramas.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-4" data-detail="leads">
+          <div class="n-icon">&#128200;</div>
+          <div class="n-label">Estrategia</div>
+          <h4>Lead Strategy</h4>
+          <p>Playbook Hormozi + Martel.</p>
+        </div>
+
+        <div class="node memory reveal reveal-delay-3" data-detail="memory">
+          <div class="n-icon">&#128218;</div>
+          <div class="n-label">Persistente</div>
+          <h4>Memoria</h4>
+          <p>Registra todo. Nunca olvida. Buscable.</p>
+        </div>
+
+        <div class="node heartbeat reveal reveal-delay-4" data-detail="heartbeat">
+          <div class="n-icon">&#10084;&#65039;</div>
+          <div class="n-label">Proactivo</div>
+          <h4>Latido</h4>
+          <p>Te avisa cada 3 horas si algo importa.</p>
+        </div>
+
+        <div class="node skill reveal reveal-delay-4" data-detail="search">
+          <div class="n-icon">&#128269;</div>
+          <div class="n-label">Inteligencia</div>
+          <h4>Busqueda</h4>
+          <p>Web + memoria personal con contexto.</p>
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div class="detail-panel" id="detailPanel">
+        <h3 id="detailTitle">Haz clic en un componente</h3>
+        <p id="detailText">Selecciona cualquier nodo del diagrama para ver una explicacion detallada de como funciona.</p>
+        <ul id="detailList" style="display:none"></ul>
+      </div>
+
+      <!-- Privacy + Extensibility -->
+      <div class="info-row">
+        <div class="info-card private reveal">
+          <h4>&#128274; 100% Privado</h4>
+          <ul>
+            <li>Corre en tu propio servidor VPS</li>
+            <li>Tus datos nunca salen de tu control</li>
+            <li>Solo tu usuario autorizado puede acceder</li>
+            <li>Sin bases de datos en la nube</li>
+          </ul>
+        </div>
+        <div class="info-card extensible reveal">
+          <h4>&#128295; Facilmente extensible</h4>
+          <ul>
+            <li>Nueva habilidad = un archivo Markdown</li>
+            <li>Nueva herramienta = un modulo Node.js</li>
+            <li>5 integraciones ya incluidas</li>
+            <li>Arquitectura 100% modular</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <div class="cta-particles"></div>
+    <div class="container">
+      <h2 class="reveal-blur">Se el director,<br/>no el operador.</h2>
+      <p class="reveal-blur reveal-delay-1">Tu IA maneja la repeticion para que tu te enfoques en la estrategia.</p>
+      <a href="https://wa.me/56912345678?text=Quiero%20saber%20mas%20sobre%20el%20Asistente%20de%20IA" class="btn-primary reveal-scale reveal-delay-2" target="_blank">
+        Agenda una demo &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <p>Asistente IA &mdash; Construido con Claude. Hecho en Chile.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── Detail data ──────────────────────────────────────────────────────
+    const details = {
+      brain: {
+        title: 'Cerebro IA (Claude)',
+        text: 'El motor central del sistema. Cada mensaje que envias pasa por Claude, que lee tu perfil, tu memoria, tus metas y el historial del dia antes de responder.',
+        list: ['Lee 4 archivos de contexto en cada mensaje', 'Entiende espanol e ingles', 'Conectado a todas tus herramientas', 'No es un chatbot generico — sabe quien eres']
+      },
+      telegram: {
+        title: 'Telegram — Tu interfaz',
+        text: 'Telegram es la puerta de entrada. No necesitas aprender comandos especiales — solo escribe lo que necesitas como si hablaras con un asistente humano.',
+        list: ['Lenguaje natural en espanol e ingles', 'Disponible 24/7 en tu celular', 'Solo tu usuario autorizado puede usarlo', 'Respuestas instantaneas']
+      },
+      morning: {
+        title: 'Briefing Matutino',
+        text: 'Di "planifica mi dia" y el asistente reune automaticamente tus tareas de Freedcamp, Todoist, eventos del calendario y estado de tus metas.',
+        list: ['Obtiene 4 fuentes de datos en paralelo', 'Genera un plan narrativo personalizado', 'Prioriza segun tus metas activas', 'Se ejecuta en segundos']
+      },
+      tasks: {
+        title: 'Gestion de Tareas',
+        text: 'Controla Freedcamp y Todoist con lenguaje natural. "Cierra todas las tareas de Teklatam" se ejecuta instantaneamente sin abrir ninguna aplicacion.',
+        list: ['Freedcamp + Todoist integrados', 'Ver, crear, completar, eliminar tareas', 'Sincroniza acciones de metas a Todoist', 'Funciona con nombres de proyecto']
+      },
+      calendar: {
+        title: 'Google Calendar',
+        text: 'Ve tus eventos, agenda reuniones, busca eventos pasados y elimina citas — todo desde Telegram.',
+        list: ['Ver eventos de hoy o proximos', 'Crear eventos con lenguaje natural', 'Buscar eventos por nombre', 'Zona horaria Chile/Santiago']
+      },
+      email: {
+        title: 'Email y Google Drive',
+        text: 'Lee tus correos no leidos, busca emails de personas especificas, envia correos con asunto y cuerpo, y busca archivos en Drive.',
+        list: ['Leer correos no leidos', 'Buscar por remitente o contenido', 'Enviar emails desde Telegram', 'Buscar documentos en Drive']
+      },
+      linkedin: {
+        title: 'Contenido LinkedIn',
+        text: 'Un equipo de 4 agentes IA (investigador, escritor, editor, estratega social) crea posts de LinkedIn para ti.',
+        list: ['Entrevista de 4 preguntas', 'Propuesta con hooks y CTA', 'Tu apruebas antes de publicar', 'Guardado automatico en documentos']
+      },
+      goals: {
+        title: 'Seguimiento de Metas',
+        text: 'Sistema completo de gestion de objetivos con estados, metricas, acciones y diagramas visuales.',
+        list: ['Crear, actualizar, pausar, completar metas', 'Registrar metricas cuantitativas', 'Generar diagramas Excalidraw', 'Sincronizar acciones con Todoist']
+      },
+      leads: {
+        title: 'Estrategia de Leads',
+        text: 'Genera un playbook completo usando frameworks de Alex Hormozi ($100M Leads) y Dan Martel (Buy Back Your Time).',
+        list: ['Entrevista de descubrimiento', 'Definicion de cliente ideal + oferta', 'Scripts de contacto personalizados', 'Sprint de 90 dias con KPIs']
+      },
+      memory: {
+        title: 'Sistema de Memoria',
+        text: 'Cada conversacion se registra automaticamente en archivos Markdown diarios. Una base SQLite FTS5 permite buscar en todo tu historial.',
+        list: ['Logs diarios automaticos', 'Busqueda full-text instantanea', 'Datos curados a largo plazo', 'Re-indexacion automatica en cada mensaje']
+      },
+      heartbeat: {
+        title: 'Latido Proactivo',
+        text: 'Cada 3 horas, el asistente revisa tu contexto (perfil, metas, logs del dia) y decide si hay algo que vale la pena avisarte.',
+        list: ['Verifica cada 3 horas automaticamente', 'Solo avisa si hay algo accionable', 'Deduplicacion de 24 horas', 'Registro de debug para transparencia']
+      },
+      search: {
+        title: 'Busqueda Web y Memoria',
+        text: 'Dos motores de busqueda: web (DuckDuckGo resumido por Claude) y memoria personal (FTS5 sobre todo tu historial).',
+        list: ['Busqueda web con resumen contextual', 'Busqueda en memoria personal', 'Siempre con contexto de quien eres', 'Resultados relevantes, no genericos']
+      }
+    };
+
+    // ── Click handler ────────────────────────────────────────────────────
+    document.querySelectorAll('[data-detail]').forEach(el => {
+      el.addEventListener('click', () => {
+        const key = el.dataset.detail;
+        const data = details[key];
+        if (!data) return;
+
+        // Update active state
+        document.querySelectorAll('[data-detail]').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+
+        // Update panel
+        const panel = document.getElementById('detailPanel');
+        const title = document.getElementById('detailTitle');
+        const text = document.getElementById('detailText');
+        const list = document.getElementById('detailList');
+
+        title.textContent = data.title;
+        text.textContent = data.text;
+
+        if (data.list) {
+          list.innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+          list.style.display = 'flex';
+        } else {
+          list.style.display = 'none';
+        }
+
+        panel.classList.remove('visible');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => panel.classList.add('visible'));
+        });
+
+        // Scroll to panel on mobile
+        if (window.innerWidth < 768) {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Caddy reverse proxy for Google OAuth callback (HTTPS)
+#
+# Setup:
+#   1. Point your domain to your VPS IP (e.g., DuckDNS)
+#   2. Replace YOUR_DOMAIN below with your actual domain
+#   3. Copy this file: sudo cp Caddyfile /etc/caddy/Caddyfile
+#   4. Restart Caddy: sudo systemctl restart caddy
+#   5. Set GOOGLE_REDIRECT_URI=https://YOUR_DOMAIN/oauth2callback in .env
+#   6. Register https://YOUR_DOMAIN/oauth2callback in Google Cloud Console
+#
+# Caddy automatically obtains and renews Let's Encrypt SSL certificates.
+
+YOUR_DOMAIN {
+	# Google OAuth callback → central OAuth proxy
+	reverse_proxy /oauth2callback localhost:3400
+
+	# Block everything else (this domain is only for OAuth)
+	respond 404
+}

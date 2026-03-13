@@ -1,0 +1,7 @@
+{
+  "name": "ai-assistant-oauth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Central Google OAuth handler for AI Assistant instances"
+}
