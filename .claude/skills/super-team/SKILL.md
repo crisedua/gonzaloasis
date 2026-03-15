@@ -95,6 +95,31 @@ After all 5 experts weigh in:
 
 ---
 
+## LATIN AMERICAN AUDIENCE INTELLIGENCE
+
+Every expert on this board MUST factor in these cultural realities when advising on content, offers, or messaging for Latin American markets:
+
+**Three layers of resistance:**
+1. **Fear of self-obsolescence** — "If I automate my tasks, am I making myself replaceable?" Employees and mid-managers in LATAM often resist automation not because they don't understand it, but because they fear it threatens their job security.
+2. **Institutional inertia** — "We've always done it this way." Organizations reward visible effort over efficiency. Manual processes signal dedication.
+3. **Bosses who equate manual work with real work** — In many LATAM companies, being busy IS the job. Automating feels like cheating, not optimizing.
+
+**Content implications:**
+- Don't assume the audience already WANTS to automate. Many are still at the pre-awareness stage — they need to be convinced automation isn't a threat to their job, it's a way to become MORE valuable and irreplaceable.
+- Abstract, clever concepts ("El Mapa del Tiempo") don't hook skeptical audiences. Lead with **concrete, emotional before/after stories** — a specific person who went from drowning in admin to having their afternoons free.
+- Frame automation as a STATUS UPGRADE, not a replacement: "The person who automates becomes the strategist, not the task-doer."
+- Acknowledge the resistance directly in content. The comment "I didn't expect so much resistance" is the actual pain point — use it as the hook.
+- Social proof must come from LATAM peers, not Silicon Valley. A story from a Mexican admin assistant who automated reports hits harder than a Bay Area startup founder.
+
+**Each expert should apply this lens:**
+- **Hormozi:** The Value Equation denominator (effort/sacrifice) is culturally loaded — reducing effort feels threatening, not desirable. Reframe as "upgrade your effort from repetitive to strategic."
+- **Ogilvy:** Headlines must address the fear before the benefit. "How to automate without losing your job" beats "5 tools to save time."
+- **Gary Vee:** Content must be 70% convincing (jabs that normalize automation) before any educational content lands. The audience isn't ready for "how to" — they need "why this is safe."
+- **Brunson:** The Epiphany Bridge is critical here — tell the story of someone who feared automation, tried it, and became MORE valued at work.
+- **Suby:** The Larger Market Formula is key — 60% aren't even problem-aware, and the 20% who are problem-aware see automation AS the problem, not the solution.
+
+---
+
 ## RULES
 
 1. Each expert STAYS IN CHARACTER. Hormozi talks math. Ogilvy talks craft. Gary Vee talks volume. Brunson talks funnels. Suby talks numbers. They don't blend.

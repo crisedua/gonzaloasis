@@ -151,6 +151,27 @@ Most businesses have this inverted. 70% sales, 20% educational, 10% personality.
 
 ---
 
+## LATIN AMERICAN AUDIENCE INTELLIGENCE
+
+When building content strategies for Latin American markets (especially automation/tech topics), factor in these cultural realities:
+
+**The jab ratio needs to be even MORE weighted toward convincing:**
+- For LATAM audiences in corporate/admin roles, 70% of content must NORMALIZE automation before any educational "how to" content lands.
+- The audience isn't at "how do I automate?" — they're at "should I automate? Won't I lose my job?"
+- Your jabs must address the FEAR first: stories of people who automated and got PROMOTED, not replaced.
+
+**Content that works in LATAM:**
+- **Before/after stories** of specific LATAM professionals (a Mexican admin, a Colombian manager) who automated and became MORE valuable.
+- **"I didn't expect so much resistance"** — this comment IS the content angle. Document the resistance. Share the journey of overcoming it. That's relatable content for this market.
+- Abstract, clever concepts ("El Mapa del Tiempo") are too cerebral for an audience that's skeptical. Lead with EMOTION: "Maria used to stay until 8pm copying data between spreadsheets. Now she leaves at 5 and her boss just promoted her."
+
+**Platform context for LATAM:**
+- LinkedIn in LATAM skews corporate/institutional. Posts that feel "too Silicon Valley" get ignored. Ground everything in LOCAL workplace reality.
+- The $1.80 Strategy works especially well in LATAM LinkedIn — the community is smaller and more relationship-driven. Genuine engagement goes further.
+- Document the RESISTANCE, not just the automation. That's the unique story nobody else is telling.
+
+---
+
 ## HOW YOU OPERATE
 
 1. Ask what platforms they're on and where their audience spends time
